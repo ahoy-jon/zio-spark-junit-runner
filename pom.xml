@@ -1,0 +1,131 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>test</groupId>
+  <artifactId>zio_spark_mvn_runner</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>${project.artifactId}</name>
+  <description>test zio spark runner</description>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <encoding>UTF-8</encoding>
+
+    <jdk.version.source>1.8</jdk.version.source>
+    <jdk.version.target>1.8</jdk.version.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <scala.version>2.11.12</scala.version>
+    <scala.compat.version>2.11</scala.compat.version>
+
+    <spark.version>2.4.7</spark.version>
+
+    <zio.version>2.0.0</zio.version>
+    <zio-spark.version>0.8.1</zio-spark.version>
+
+    <!-- maven -->
+    <maven.scala.version>4.5.6</maven.scala.version>
+    <maven.surefire.version>2.7</maven.surefire.version>
+
+  </properties>
+
+  <dependencies>
+    <!--      Scala & spark libs -->
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-core_${scala.compat.version}</artifactId>
+      <version>${spark.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-sql_${scala.compat.version}</artifactId>
+      <version>${spark.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-hive_${scala.compat.version}</artifactId>
+      <version>${spark.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <!--        other libs -->
+    <dependency>
+      <groupId>dev.zio</groupId>
+      <artifactId>zio_${scala.compat.version}</artifactId>
+      <version>${zio.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.univalence</groupId>
+      <artifactId>zio-spark_${scala.compat.version}</artifactId>
+      <version>${zio-spark.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>dev.zio</groupId>
+      <artifactId>zio-test_${scala.compat.version}</artifactId>
+      <version>${zio.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>dev.zio</groupId>
+      <artifactId>zio-test-junit_${scala.compat.version}</artifactId>
+      <version>${zio.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src/main/scala</sourceDirectory>
+    <testSourceDirectory>src/test/scala</testSourceDirectory>
+
+    <plugins>
+
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>${maven.scala.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <scalaVersion>${scala.version}</scalaVersion>
+          <jvmArgs>
+            <jvmArg>-Xms256m</jvmArg>
+            <jvmArg>-Xmx1024m</jvmArg>
+          </jvmArgs>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven.surefire.version}</version>
+        <configuration>
+          <argLine>-Xmx2048m -XX:MaxPermSize=2048m</argLine>
+          <!--                    <argLine>-Dfile.encoding=UTF-8</argLine>-->
+          <!-- <useFile>false</useFile>
+          <disableXmlReport>true</disableXmlReport>-->
+          <!-- If you have classpath issue like NoDefClassError,... -->
+          <!-- useManifestOnlyJar>false</useManifestOnlyJar -->
+          <includes>
+            <include>**/*Test.*</include>
+            <include>**/*Suite.*</include>
+          </includes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

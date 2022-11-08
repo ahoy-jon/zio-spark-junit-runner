@@ -1,0 +1,9 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+### Scala template
+*.class
+*.log
+.idea
+*.iml
+/target
