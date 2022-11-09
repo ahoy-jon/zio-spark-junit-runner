@@ -113,12 +113,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven.surefire.version}</version>
         <configuration>
-          <argLine>-Xmx2048m -XX:MaxPermSize=2048m</argLine>
-          <!--                    <argLine>-Dfile.encoding=UTF-8</argLine>-->
-          <!-- <useFile>false</useFile>
-          <disableXmlReport>true</disableXmlReport>-->
-          <!-- If you have classpath issue like NoDefClassError,... -->
-          <!-- useManifestOnlyJar>false</useManifestOnlyJar -->
+          <argLine>-Xmx2048m </argLine>
           <includes>
             <include>**/*Test.*</include>
             <include>**/*Suite.*</include>

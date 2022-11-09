@@ -5,7 +5,6 @@ import zio.test.{Assertion, Spec, TestEnvironment, assert}
 import zio.test._
 import zio.test.junit.ZTestJUnitRunner
 
-@RunWith(classOf[ZTestJUnitRunner])
 object LogicTest  {
 
   def spec: Spec[TestEnvironment, Any] = {
