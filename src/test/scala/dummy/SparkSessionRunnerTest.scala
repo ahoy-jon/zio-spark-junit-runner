@@ -10,10 +10,15 @@ import zio.test._
 import zio.test.junit.ZTestJUnitRunner
 import org.apache.spark.sql
 
+
+/*
 object MavenSession {
   lazy val session: sql.SparkSession = org.apache.spark.sql.SparkSession.builder()
   .appName("zio-spark").master("local").getOrCreate()
 }
+
+
+
 
 @RunWith(classOf[ZTestJUnitRunner])
 object ZioSparkTestSuite extends ZIOSpecDefault {
@@ -28,4 +33,12 @@ object ZioSparkTestSuite extends ZIOSpecDefault {
       Seq(LogicTest.mySpec)
     suite("Spark tests")(specs: _*).provideCustomLayerShared(session)
   }
+}
+*/
+
+@RunWith(classOf[ZTestJUnitRunner])
+object Test extends ZIOSpecDefault {
+  override def spec: Spec[TestEnvironment with Scope, Any] = suite("toto")(
+    Spec.empty
+  )
 }
